@@ -11,7 +11,7 @@
 ### Concerned about sharing your molecules with the world?
 **We too!** 
 
-#### Introducing MolVault from VaultChem
+#### Introducing MolVault from <a href='https://vaultchem.com/'>VaultChem</a></h6>
 *MolVault* is an application that enables you to predict properties of your molecules **without sharing them publicly**.
 You can send an encrypted version of your molecule to our server, which will perform the prediction and send back the encrypted result.
 
