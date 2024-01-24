@@ -93,15 +93,13 @@ Finally the model is saved in the `deploy` folder.
 
 The `tutorial.ipynb` notebook for MolVault provides a guide on using the application to predict properties of molecules using machine learning. The notebook includes the following sections:
 
-1) Data Preparation: This part demonstrates how to prepare the dataset for machine learning. It includes loading the data, preprocessing it, and splitting it into training and testing sets.
+1) How to prepare the chemistry dataset for machine learning. Load the data, preprocess it, and split into training and testing sets.
 
-2) Model Training and Evaluation: In this section, the notebook outlines the process of training a machine learning model. It includes selecting a model (either Support Vector Regression or XGBoost), performing hyperparameter optimization, and evaluating the model's performance.
+2) Outlines process of model training. It includes selecting a model (either Support Vector Regression or XGBoost), performing hyperparameter optimization, and evaluating the model's performance.
 
-3) Fully Homomorphic Encryption (FHE) Model Deployment: How to deploy the trained model using Fully Homomorphic Encryption, ensuring the privacy of the data. It shows how to encrypt the model, evaluate it using encrypted data, and compare the predictions of the encrypted model with those of the plaintext model.
+3) Deploy the model with Fully Homomorphic Encryption. How to encrypt the model, evaluate it using encrypted data, and compare the predictions of the encrypted model with those of the plaintext model.
 
-4) Prediction with New Molecules: The notebook concludes by demonstrating how to use the deployed model to make predictions on new molecules, including examples with molecules like Vitamin D, Ethanol, and Ibuprofen. This section highlights the application's capability to make predictions without revealing the molecular structures to the server.
-
-Overall, the notebook serves as a practical guide for users to utilize MolVault for secure and private molecular property prediction, showcasing both machine learning and encryption techniques
+4) Use the model to make predictions on new molecules, including examples with molecules like Vitamin D, Ethanol, and Ibuprofen. This section highlights the application's capability to make predictions without revealing the molecular structures to the server.
 
 ## Huggingface space
 
