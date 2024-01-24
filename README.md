@@ -1,7 +1,7 @@
 # MolVault
 
 <p align="center">
-  <img src="molvault.png" width="40%" height="40%" />
+  <img src="logo_app.png" width="30%" height="40%" />
 </p>
 
 
@@ -82,7 +82,6 @@ Note that the name of the column containing the SMILES strings must be "SMILES" 
 `python regress.py --data example_data.csv --target "example_target"`
 
 The default regression model is support vector regression `"SVR"`, passed in the `--regtype` option. To change to XGBoost, use `"XGB"`.
-
 As an output you will first get the hyperparameters of the best model. If needed you can change the hyperparameter grid in the `regress_utils.py` file.
 
 Next, predictions on the same points using the sklearn model and its FHE counterpart will be printed as well as their Pearson correlation coefficient. Also the error and Pearson correlation with the true values will be printed for the FHE model.
