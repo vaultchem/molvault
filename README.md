@@ -125,5 +125,5 @@ The dataset used to traing the ML models for the app can be found at:
 
 <p align="center">
   <img src="./examples/huggingface/app/VaultChem.png" width="30%" height="40%" />
+  <h6 style='text-align: center; color: grey;'>Visit our website : <a href='https://vaultchem.com/'>VaultChem</a></h6>
 </p>
-<h6 style='text-align: center; color: grey;'>Visit our website : <a href='https://vaultchem.com/'>VaultChem</a></h6>
