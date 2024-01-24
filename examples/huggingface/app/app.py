@@ -69,8 +69,12 @@ interesting_text = """
 
 #### Introducing MolVault from VaultChem
 *MolVault* is an application that enables you to predict properties of your molecules **without sharing them publicly**.
+
 You can send an encrypted version of your molecule to our server, which will perform the prediction and send back the encrypted result.
-\n 🪄 **The magic?** 🪄The server will never see the molecule in clear text, and you will be the only one able to decrypt the result.
+\n 
+🪄 **The magic?** 🪄
+\n
+The server will never see the molecule in clear text, and you will be the only one able to decrypt the result.
 
 ##### How?
 Find out below!
@@ -352,7 +356,7 @@ def molecule_submitted(text: str):
         molecule_present = False
 
     elif Chem.MolFromSmiles(text) == None:
-        msg_to_user = "Invalid Molecule. Please enter a valid molecule."
+        msg_to_user = "Invalid Molecule. Please enter a valid molecule. How about trying Aspirin or Ibuprofen?"
         molecule_present = False
 
     else:

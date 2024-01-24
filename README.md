@@ -17,7 +17,7 @@ You can send an encrypted version of your molecule to our server, which will per
 
  🪄 **The magic?** 🪄
 
- The server will never see the molecule in clear text, and you will be the only one able to decrypt the result.
+The server will never see the molecule in clear text, and you will be the only one able to decrypt the result.
 
 #### How?
 Find out below!
@@ -28,8 +28,7 @@ Find out below!
 </p>
 
 
-
-Here we present the first public demonstration of FHE for predicting pharmacokinetic properties. As shown above, the steps are as follows:
+Here we present the first public demonstration of encrypted prediction of pharmacokinetic properties. As shown above, the steps are as follows:
 
 0) Select a pharmacokinetic property of interest
 1) Define the molecule for the prediction
@@ -40,13 +39,9 @@ Here we present the first public demonstration of FHE for predicting pharmacokin
 
 **Background**
 
-MolVault is built on Zamas `concrete-ml` library for fully homomorpic encryption (FHE). Consider pharma company A to be interested in properties of drug candidate molecules.
+MolVault is built on Zamas `concrete-ml` library for fully homomorpic encryption (FHE). Consider pharma company A to be interested in properties of drug candidate molecules: for instance understanding pharmacokinetic properties is crucial for determining a drug candidate's concentration profile at its action site, significantly impacting the drug's effectiveness [1].
 
-For instance understanding pharmacokinetic properties is crucial for determining a drug candidate's concentration profile at its action site, significantly impacting the drug's effectiveness[1].
-
-A does not have sufficient data available for reliable ML predictions. Instead, A will securely obtain predictions on molecular data from an untrusted party B that owns a secret database and an ML model with sufficient training data. This is only possible using FHE to guarantee party A will not reveal the secret query to party B.
-
-Here this scenario is simulated with open-source chemistry datasets and tools based on cheminformatics `rdkit` and FHE `concrete-ml`. We give an end-to-end solution to the problem of privacy-preserving prediction for molecules. 
+Party A may not have sufficient data available for reliable ML predictions. Instead, A will securely obtain predictions on molecular data from an untrusted party B that owns a secret database and an ML model with sufficient training data. This is only possible using FHE to guarantee party A will not reveal the secret query to party B. Here this scenario is simulated with open-source chemistry datasets and tools based on cheminformatics `rdkit` and FHE `concrete-ml`. We give an end-to-end solution to the problem of privacy-preserving prediction for molecules. 
 
 We have also published an app on hugging face that allows you to make predictions on your molecules without sharing them with the world.
 
@@ -63,10 +58,7 @@ SMILES, target_name
 CC, 2.312
 ...
 ```
-Note that the name of the column containing the SMILES strings must be "SMILES" and cannot be changed. The name of the target column can be changed by using the `--target` option.
-
-
-To perform regression, including hyperparameter optimization, and deployment of the FHE model into a subfolder called "deploy", run the following command:
+Note that the name of the column containing the SMILES strings must be "SMILES" and cannot be changed. The name of the target column can be changed by using the `--target` option. To perform regression, including hyperparameter optimization, and deployment of the FHE model into a subfolder called "deploy", run the following command:
 
 `python regress.py --data data.csv --target "target_name" --regtype "SVR" --folder "deploy"`
 
@@ -74,8 +66,7 @@ The default regression model is support vector regression `"SVR"`, passed in the
 
 As an output you will first get the hyperparameters of the best model. If needed you can change the hyperparameter grid in the `regress_utils.py` file.
 
-Next, predictions on the same points using the sklearn model and its FHE counterpart will be printed as well as their Pearson correlation coefficient. 
-Also the error and Pearson correlation with the true values will be printed for the FHE model.
+Next, predictions on the same points using the sklearn model and its FHE counterpart will be printed as well as their Pearson correlation coefficient. Also the error and Pearson correlation with the true values will be printed for the FHE model.
 Finally the model is saved in the `deploy` folder.
 
 
@@ -107,5 +98,5 @@ This will result in a subfolder `models` containing the fitted models that can r
 
 [1] Fang, C., Wang, Y., Grater, R., Kapadnis, S., Black, C., Trapa, P., & Sciabola, S. (2023). Prospective Validation of Machine Learning Algorithms for Absorption, Distribution, Metabolism, and Excretion Prediction: An Industrial Perspective. _Journal of Chemical Information and Modeling, 63_(11), 3263-3274. [https://doi.org/10.1021/acs.jcim.3c00160](https://doi.org/10.1021/acs.jcim.3c00160)
 
-The dataset can be found at:
+The dataset used to traing the ML models for the app can be found at:
 `https://github.com/molecularinformatics/Computational-ADME`
