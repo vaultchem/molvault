@@ -646,13 +646,6 @@ if __name__ == "__main__":
                 "<h6 style='text-align: center; color: grey;'>Visit our Github Repo : <a href='https://github.com/vaultchem'>Github</a></h6>",
                 unsafe_allow_html=True,
             )
-
-            # new_link_url = "https://github.com/vaultchem"
-            # new_alias_text = "Github"
-            # st.markdown(f"Visit our Github Repo : [{new_alias_text}]({new_link_url})")
-            # link_url = "https://streamlit.io/"
-            # alias_text = "Streamlit"
-            # st.markdown(f"Built with [{alias_text}]({link_url})🎈")
             st.markdown(
                 "<h6 style='text-align: center; color: grey;'>Built with <a href='https://streamlit.io/'>Streamlit</a>🎈</h6>",
                 unsafe_allow_html=True,

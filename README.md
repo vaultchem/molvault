@@ -113,9 +113,17 @@ To fit SVR and XGB to all properties contained in the ADME dataset [1], run:
 
 This will result in a subfolder `models` containing the fitted models that can readily be used for the app and a file `FHE_timings.json` containing the timings for the FHE models.
 
+Note: You can download the pretrained models from the huggingface space.
+
 #### References
 
 [1] Fang, C., Wang, Y., Grater, R., Kapadnis, S., Black, C., Trapa, P., & Sciabola, S. (2023). Prospective Validation of Machine Learning Algorithms for Absorption, Distribution, Metabolism, and Excretion Prediction: An Industrial Perspective. _Journal of Chemical Information and Modeling, 63_(11), 3263-3274. [https://doi.org/10.1021/acs.jcim.3c00160](https://doi.org/10.1021/acs.jcim.3c00160)
 
 The dataset used to traing the ML models for the app can be found at:
 `https://github.com/molecularinformatics/Computational-ADME`
+
+
+<p align="center">
+  <img src="./examples/huggingface/app/VaultChem.png" width="30%" height="40%" />
+</p>
+<h6 style='text-align: center; color: grey;'>Visit our website : <a href='https://vaultchem.com/'>VaultChem</a></h6>
