@@ -79,7 +79,7 @@ CC, 2.312
 ```
 Note that the name of the column containing the SMILES strings must be "SMILES" and cannot be changed. The name of the target column can be changed by using the `--target` option. To perform regression, including hyperparameter optimization, and deployment of the FHE model into a subfolder called "deploy", run the following command:
 
-`python regress.py --data data.csv --target "target_name" --regtype "SVR" --folder "deploy"`
+`python regress.py --data example_data.csv --target "example_target" --regtype "SVR" --folder "deploy"`
 
 The default regression model is support vector regression `"SVR"`, passed in the `--regtype` option. To change to XGBoost, use `"XGB"`.
 
