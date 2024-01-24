@@ -48,8 +48,27 @@ We have also published an app on hugging face that allows you to make prediction
 (link ..)
 
 ## Installation
+First clone the repository:
 
-Navigate to the `molvault` folder and run `pip install -e .` to install the package.
+`git clone https://github.com/vaultchem/molvault.git`
+
+Navigate to the `molvault` folder. 
+Create a new python `3.10` environment, for instance using miniconda:
+
+`conda create -n molvault python=3.10`
+
+Now activate the environment:
+`conda activate molvault`
+
+and install the requirements using
+
+`pip install -r requirements.txt` 
+
+and then run 
+
+`pip install -e .` 
+
+to install the package.
 
 ## Usage:
 Here we quickly explain how to use MolVault to fit a fully homomorphic encrypted (FHE) model to your data and make predictions on new molecules. Your CSV file `data.csv` with the chemistry data should be of the following format:
