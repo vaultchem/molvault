@@ -5,19 +5,38 @@
 </p>
 
 
-**Predict properties of molecules using machine learning?**
+## Predict properties of molecules using machine learning? 
+**Yes, please!** 
 
- Yes, please!
+### Concerned about sharing your molecules with the world?
+**We too!** 
 
-**Do not want to share your molecules with the world?**
+#### Introducing MolVault from VaultChem
+*MolVault* is an application that enables you to predict properties of your molecules **without sharing them publicly**.
+You can send an encrypted version of your molecule to our server, which will perform the prediction and send back the encrypted result.
 
- We neither! 
+ 🪄 **The magic?** 🪄
+
+ The server will never see the molecule in clear text, and you will be the only one able to decrypt the result.
+
+#### How?
+Find out below!
 
 
-*We at VaultChem created MolVault. An application that allows you to predict properties of your molecules without sharing them publicly.*
+<p align="center">
+  <img src="./examples/huggingface/app/ablauf.png" width="120%" height="40%" />
+</p>
 
 
-www.vaultchem.com
+
+Here we present the first public demonstration of FHE for predicting pharmacokinetic properties. As shown above, the steps are as follows:
+
+0) Select a pharmacokinetic property of interest
+1) Define the molecule for the prediction
+2) Generate a key pair
+3) Encrypt molecule, send it to server
+4) 🪄**Magic happens here**🪄 The prediction is performed while the data is still encrypted
+5) Encrypted prediction is sent back and user can decrypt
 
 **Background**
 
