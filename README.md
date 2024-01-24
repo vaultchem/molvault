@@ -71,7 +71,7 @@ and then run
 to install the package.
 
 ## Usage:
-Here we quickly explain how to use MolVault to fit a fully homomorphic encrypted (FHE) model to your data and make predictions on new molecules. Your CSV file `data.csv` with the chemistry data should be of the following format:
+How to use MolVault to fit a fully homomorphic encrypted (FHE) model to your data and make predictions on new molecules: Your CSV file `data.csv` with the chemistry data should be of the following format:
 ```
 SMILES, target_name
 CC, 2.312
@@ -79,14 +79,14 @@ CC, 2.312
 ```
 Note that the name of the column containing the SMILES strings must be "SMILES" and cannot be changed. The name of the target column can be changed by using the `--target` option. To perform regression, including hyperparameter optimization, and deployment of the FHE model into a subfolder called "deploy", run the following command:
 
-`python regress.py --data example_data.csv --target "example_target" --regtype "SVR" --folder "deploy"`
+`python regress.py --data example_data.csv --target "example_target"`
 
 The default regression model is support vector regression `"SVR"`, passed in the `--regtype` option. To change to XGBoost, use `"XGB"`.
 
 As an output you will first get the hyperparameters of the best model. If needed you can change the hyperparameter grid in the `regress_utils.py` file.
 
 Next, predictions on the same points using the sklearn model and its FHE counterpart will be printed as well as their Pearson correlation coefficient. Also the error and Pearson correlation with the true values will be printed for the FHE model.
-Finally the model is saved in the `deploy` folder.
+Finally the model is saved in the `deploy` folder. You may change the folder name using the `--deploy` option.
 
 
 ## Tutorial
