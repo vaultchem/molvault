@@ -59,24 +59,26 @@ formatted_text = (
 st.markdown(formatted_text, unsafe_allow_html=True)
 
 interesting_text = """
-## Predict properties of molecules using machine learning? 
-**Yes, please!** 
-
-### Concerned about sharing your molecules with the world?
-**We too!** 
+## Predict properties of molecules, but concerned about obtaining the predictions from an untrusted server?
+\n
+This is exactly the kind of problem chemical companies face if they want to use machine learning (ML) to predict the properties of molecules.
 
 #### Introducing MolVault from VaultChem
-*MolVault* is an application that enables you to predict properties of your molecules **without sharing them publicly**.
-
-You can send an encrypted version of your molecule to our server, which will perform the prediction and send back the encrypted result.
+We developed an application that allows predicting properties of molecules **without sharing them**.
+That means an organization "A" can use any server - even an untrusted environment - outside of their infrastructure to perform the prediction.
+This way organization "A" can benefit from ML services provided by organization "B" without sharing their confidential data.
 \n 
 🪄 **The magic?** 🪄
 \n
-The server will never see the molecule in clear text, and you will be the only one able to decrypt the result.
-
-##### How?
-Find out below!
+The server on which the prediction is computed will never see the molecule in clear text, but will still compute an encrypted prediction.
+Why is this **magic**? Because this is equivalent to computing the prediction on the molecule in clear text, but without sharing the molecule with the server.
+Even if organization "B" - or in fact any other party - would try to steal the data, they would only see the encrypted molecular data.
+Only the party that has the private key (organization "A") can decrypt the prediction. This is possible using a method called "Fully homomorphic encryption" (FHE). This special encryption scheme allows to perform computations on encrypted data.
+\n
+##### What are the steps involved?
+Find out below! You can try it out yourself by entering a molecule and clicking on the buttons.
 """
+
 st.markdown(interesting_text)
 st.divider()
 # st.image("ablauf.png", width=1200)
@@ -86,17 +88,32 @@ st.markdown(
     + "</p>",
     unsafe_allow_html=True,
 )
+
+
+st.markdown(interesting_text)
+st.divider()
+
 # read text from file
 
-with open("description.txt", "r") as f:
-    readme_text = f.read()
+#with open("description.txt", "r") as f:
+#    readme_text = f.read()
 
+#st.markdown(
+#    f"<div style='max-height: 600px; overflow-y: auto;'>{readme_text}</div>",
+#    unsafe_allow_html=True,
+#)
+# Define your data
+# st.image("ablauf.png", width=1200)
 st.markdown(
-    f"<div style='max-height: 600px; overflow-y: auto;'>{readme_text}</div>",
+    "<p style='text-align: center; color: grey;'>"
+    + img_to_html("scheme2.png", width="80%")
+    + "</p>",
     unsafe_allow_html=True,
 )
+
 # Define your data
 st.divider()
+
 
 # This repository's directory
 REPO_DIR = Path(__file__).parent
