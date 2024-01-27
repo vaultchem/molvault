@@ -61,25 +61,39 @@ formatted_text = (
 st.markdown(formatted_text, unsafe_allow_html=True)
 
 interesting_text = """
-## Predict properties of molecules using machine learning? 
-
-### Concerned about obtaining the predictions from an untrusted server?
-**We are too!** 
+## Predict properties of molecules, but concerned about obtaining the predictions from an untrusted server?
+\n
+This is exactly the kind of problem chemical companies face if they want to use machine learning (ML) to predict the properties of molecules.
 
 #### Introducing MolVault from VaultChem
 We developed an application that allows predicting properties of molecules **without sharing them**.
-That means an organization can use any server - even an untrusted environment - outside of their infrastructure to perform the prediction.
+That means an organization "A" can use any server - even an untrusted environment - outside of their infrastructure to perform the prediction.
+This way organization "A" can benefit from ML services provided by organization "B" without sharing their confidential data.
 \n 
 🪄 **The magic?** 🪄
 \n
-The server will never see the molecule in clear text, but will still compute an encrypted prediction.
-Only the party that has the private key can decrypt the prediction.
-
-##### How?
-Find out below!
+The server on which the prediction is computed will never see the molecule in clear text, but will still compute an encrypted prediction.
+Why is this **magic**? Because this is equivalent to computing the prediction on the molecule in clear text, but without sharing the molecule with the server.
+Even if organization "B" - or in fact any other party - would try to steal the data, they would only see the encrypted molecular data.
+Only the party that has the private key (organization "A") can decrypt the prediction. This is possible using a method called "Fully homomorphic encryption" (FHE). This special encryption scheme allows to perform computations on encrypted data.
+\n
+##### What are the steps involved?
+Find out below! You can try it out yourself by entering a molecule and clicking on the buttons.
 """
+
+
 st.markdown(interesting_text)
 st.divider()
+# read text from file
+
+#with open("description.txt", "r") as f:
+#    readme_text = f.read()
+
+#st.markdown(
+#    f"<div style='max-height: 600px; overflow-y: auto;'>{readme_text}</div>",
+#    unsafe_allow_html=True,
+#)
+# Define your data
 # st.image("ablauf.png", width=1200)
 st.markdown(
     "<p style='text-align: center; color: grey;'>"
@@ -88,19 +102,6 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.divider()
-# read text from file
-
-with open("description.txt", "r") as f:
-    readme_text = f.read()
-
-st.markdown(
-    f"<div style='max-height: 600px; overflow-y: auto;'>{readme_text}</div>",
-    unsafe_allow_html=True,
-)
-# Define your data
-
-st.divider()
 
 
 time_begin = time.time()
