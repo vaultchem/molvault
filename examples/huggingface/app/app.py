@@ -62,19 +62,18 @@ st.markdown(formatted_text, unsafe_allow_html=True)
 
 interesting_text = """
 ## Predict properties of molecules using machine learning? 
-**Yes, please!** 
 
-### Concerned about sharing your molecules with the world?
-**We too!** 
+### Concerned about obtaining the predictions from an untrusted server?
+**We are too!** 
 
 #### Introducing MolVault from VaultChem
-*MolVault* is an application that enables you to predict properties of your molecules **without sharing them publicly**.
-
-You can send an encrypted version of your molecule to our server, which will perform the prediction and send back the encrypted result.
+We developed an application that allows predicting properties of molecules **without sharing them**.
+That means an organization can use any server - even an untrusted environment - outside of their infrastructure to perform the prediction.
 \n 
 🪄 **The magic?** 🪄
 \n
-The server will never see the molecule in clear text, and you will be the only one able to decrypt the result.
+The server will never see the molecule in clear text, but will still compute an encrypted prediction.
+Only the party that has the private key can decrypt the prediction.
 
 ##### How?
 Find out below!
@@ -84,7 +83,7 @@ st.divider()
 # st.image("ablauf.png", width=1200)
 st.markdown(
     "<p style='text-align: center; color: grey;'>"
-    + img_to_html("ablauf.png", width="80%")
+    + img_to_html("scheme2.png", width="80%")
     + "</p>",
     unsafe_allow_html=True,
 )
