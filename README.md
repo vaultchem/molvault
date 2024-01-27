@@ -48,6 +48,7 @@ We have also published an app on hugging face that allows you to make prediction
 (link ..)
 
 ## Installation
+
 First clone the repository:
 
 `git clone https://github.com/vaultchem/molvault.git`
@@ -70,7 +71,18 @@ and then run
 
 to install the package.
 
-## Usage:
+## Docker Installation
+
+Apart from Conda you can use MolVault through a Docker environment. See commands below to install.
+
+```bash
+docker build -t molvault .
+docker run -it -v /media/vaultchem/molvault:/app -p 8501:8501 molvault
+export PYTHONPATH=$PYTHONPATH:/app/examples/huggingface/app/
+```
+
+## Usage
+
 How to use MolVault to fit a fully homomorphic encrypted (FHE) model to your data and make predictions on new molecules: Your CSV file `data.csv` with the chemistry data should be of the following format:
 ```
 SMILES, target_name
