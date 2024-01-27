@@ -81,29 +81,7 @@ Find out below! You can try it out yourself by entering a molecule and clicking 
 
 st.markdown(interesting_text)
 st.divider()
-# st.image("ablauf.png", width=1200)
-st.markdown(
-    "<p style='text-align: center; color: grey;'>"
-    + img_to_html("ablauf.png", width="80%")
-    + "</p>",
-    unsafe_allow_html=True,
-)
 
-
-st.markdown(interesting_text)
-st.divider()
-
-# read text from file
-
-#with open("description.txt", "r") as f:
-#    readme_text = f.read()
-
-#st.markdown(
-#    f"<div style='max-height: 600px; overflow-y: auto;'>{readme_text}</div>",
-#    unsafe_allow_html=True,
-#)
-# Define your data
-# st.image("ablauf.png", width=1200)
 st.markdown(
     "<p style='text-align: center; color: grey;'>"
     + img_to_html("scheme2.png", width="80%")
