@@ -1,6 +1,5 @@
-# uncollemt if run locally
+# Uncomment if run locally
 import sys, os
-
 sys.path.append(os.path.abspath("../../../molvault"))
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
@@ -23,6 +22,7 @@ from rdkit import Chem
 from rdkit.Chem import AllChem
 from rdkit.Chem.Draw import rdMolDraw2D
 import pandas as pd
+from st_keyup import st_keyup
 
 st.set_page_config(layout="wide")
 
@@ -31,7 +31,6 @@ def img_to_bytes(img_path):
     img_bytes = Path(img_path).read_bytes()
     encoded = base64.b64encode(img_bytes).decode()
     return encoded
-
 
 def img_to_html(img_path, width=None):
     img_bytes = img_to_bytes(img_path)
@@ -46,17 +45,16 @@ def img_to_html(img_path, width=None):
     return img_html
 
 
-# start timing
+# Start timing
 formatted_text = (
-    "<h1 style='text-align: center; color: blue;'>VaultChem</h1>"
-    "<h1 style='text-align: center;'>"
-    "<span style='color: red;'>Pharmacokinetics</span>"
-    "<span style='color: black;'> of </span>"
-    "<span style='color: blue;'>confidential</span>"
-    "<span style='color: black;'> molecules</span>"
-    "</h1>"
+"<h1 style='text-align: center; color: blue;'>VaultChem</h1>"
+"<h1 style='text-align: center;'>"
+"<span style='color: red;'>Pharmacokinetics</span>"
+"<span style='color: black;'> of </span>"
+"<span style='color: blue;'>confidential</span>"
+"<span style='color: black;'> molecules</span>"
+"</h1>"
 )
-
 
 st.markdown(formatted_text, unsafe_allow_html=True)
 
@@ -88,8 +86,6 @@ st.markdown(
     + "</p>",
     unsafe_allow_html=True,
 )
-
-st.divider()
 # read text from file
 
 with open("description.txt", "r") as f:
@@ -100,12 +96,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 # Define your data
-
 st.divider()
-
-
-time_begin = time.time()
-
 
 # This repository's directory
 REPO_DIR = Path(__file__).parent
@@ -119,7 +110,7 @@ if not os.path.exists("tmp"):
     os.mkdir("tmp")
 
 
-# Wait 5 sec for the server to start
+# Wait 4 sec for the server to start
 time.sleep(4)
 
 # Encrypted data limit for the browser to display
@@ -169,7 +160,7 @@ def keygen():
 
     return [list(evaluation_key)[:ENCRYPTED_DATA_BROWSER_LIMIT], user_id]
 
-
+@st.cache_data
 def encode_quantize_encrypt(text, user_id):
     task = st.session_state["task"]
     fhe_api = FHEModelClient(f"deployment/deployment_{task}", f".fhe_keys/{user_id}")
@@ -304,12 +295,6 @@ def decrypt_prediction(user_id):
         st.session_state["decrypted_prediction"] = predictions
 
 
-def process_text(text):
-    # Replace the following line with your actual processing code
-    processed_text = f"Processed: {text}"
-    return processed_text
-
-
 def init_session_state():
     if "molecule_submitted" not in st.session_state:
         st.session_state["molecule_submitted"] = False
@@ -349,7 +334,7 @@ def init_session_state():
         ] = ""  # actually a list of list. But python takes care as it is dynamically typed.
 
 
-def molecule_submitted(text: str):
+def molecule_submitted(text: str = st.session_state.get('molecule_to_test', '')):
     msg_to_user = ""
     if len(text) == 0:
         msg_to_user = "Enter a non-empty molecule formula."
@@ -390,6 +375,7 @@ def encrpyt_data_util():
         st.session_state["encrypt"] = True
 
 
+@st.cache_data
 def mol_to_img(mol):
     mol = Chem.MolFromSmiles(mol)
     mol = AllChem.RemoveHs(mol)
@@ -398,9 +384,7 @@ def mol_to_img(mol):
     drawer.DrawMolecule(mol)
     drawer.FinishDrawing()
     svg = drawer.GetDrawingText()
-
     return cairosvg.svg2png(bytestring=svg.encode("utf-8"))
-
 
 def FHE_util():
     run_fhe(st.session_state["user_id"])
@@ -414,10 +398,66 @@ def clear_session_state():
     st.session_state.clear()
 
 
+# Define global variables outside main function scope.
+
+task_options = ["0", "1", "2", "3", "4", "5"]
+task_mapping = {
+    "0": "HLM",
+    "1": "MDR-1-MDCK-ER",
+    "2": "Solubility",
+    "3": "Protein bind. human",
+    "4": "Protein bind. rat",
+    "5": "RLM",
+}
+unit_mapping = {
+    "0": "(mL/min/kg)",
+    "1": " ",
+    "2": "(ug/mL)",
+    "3": " (%)",
+    "4": " (%)",
+    "5": "(mL/min/kg)",
+}
+task_options = list(task_mapping.values())
+
+# Create the dropdown menu
+data_dict = {
+    "HLM": "Human Liver Microsomes: drug is metabolized by the liver",
+    "MDR-1-MDCK-ER": "MDR-1-MDCK-ER: drug is transported by the P-glycoprotein",
+    "Solubility": "How soluble a drug is in water",
+    "Protein bind. human": "Drug binding to human plasma proteins",
+    "Protein bind. rat": "Drug binding to rat plasma proteins",
+    "RLM": "Rat Liver Microsomes: Drug metabolism by a rat liver",
+}
+
+# Convert the dictionary to a DataFrame
+data = pd.DataFrame(
+    list(data_dict.items()), columns=["Property", "Explanation"]
+)
+
+user_id = 0
+
+css_styling = """<style>
+.table {
+    width: 100%;
+    margin: 10px 0 20px 0;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0,0,0,.05);
+}
+.table-hover tbody tr:hover {
+    color: #563d7c;
+    background-color: rgba(0,0,0,.075);
+}
+.table thead th, .table tbody td {
+    text-align: center;
+    max-width: 150px;  # Adjust this value as needed
+    word-wrap: break-word;
+}
+</style>"""
+
+
 if __name__ == "__main__":
-    user_id = 0
     # Set up the Streamlit interface
-    # Button
     init_session_state()
 
     with st.container():
@@ -429,75 +469,17 @@ if __name__ == "__main__":
         st.text(
             "This app can predict the following properties of confidential molecules:"
         )
-        task_options = ["0", "1", "2", "3", "4", "5"]
 
-        task_mapping = {
-            "0": "HLM",
-            "1": "MDR-1-MDCK-ER",
-            "2": "Solubility",
-            "3": "Protein bind. human",
-            "4": "Protein bind. rat",
-            "5": "RLM",
-        }
-
-        unit_mapping = {
-            "0": "(mL/min/kg)",
-            "1": " ",
-            "2": "(ug/mL)",
-            "3": " (%)",
-            "4": " (%)",
-            "5": "(mL/min/kg)",
-        }
-        task_options = list(task_mapping.values())
         # Check if 'task' is not already in session_state
         if "task" not in st.session_state:
             # Initialize it with the first value of your options
             st.session_state["task"] = "0"
-            # task_options[0]
 
-        # Create the dropdown menu
-        data_dict = {
-            "HLM": "Human Liver Microsomes: drug is metabolized by the liver",
-            "MDR-1-MDCK-ER": "MDR-1-MDCK-ER: drug is transported by the P-glycoprotein",
-            "Solubility": "How soluble a drug is in water",
-            "Protein bind. human": "Drug binding to human plasma proteins",
-            "Protein bind. rat": "Drug binding to rat plasma proteins",
-            "RLM": "Rat Liver Microsomes: Drug metabolism by a rat liver",
-        }
-
-        # Convert the dictionary to a DataFrame
-        data = pd.DataFrame(
-            list(data_dict.items()), columns=["Property", "Explanation"]
-        )
-
-        # Custom HTML and CSS styling
         # Custom HTML and CSS styling
         html = data.to_html(index=False, classes="table table-striped table-hover")
 
         # Custom styling
-        st.markdown(
-            """
-            <style>
-                .table {
-                    width: 100%;
-                    margin: 10px 0 20px 0;
-                }
-                .table-striped tbody tr:nth-of-type(odd) {
-                    background-color: rgba(0,0,0,.05);
-                }
-                .table-hover tbody tr:hover {
-                    color: #563d7c;
-                    background-color: rgba(0,0,0,.075);
-                }
-                .table thead th, .table tbody td {
-                    text-align: center;
-                    max-width: 150px;  # Adjust this value as needed
-                    word-wrap: break-word;
-                }
-            </style>
-            """,
-            unsafe_allow_html=True,
-        )
+        st.markdown(css_styling, unsafe_allow_html=True)
 
         # Display the HTML table
         st.write(html, unsafe_allow_html=True)
@@ -532,10 +514,8 @@ if __name__ == "__main__":
                 args=("CC(Cc1ccc(cc1)C(C(=O)O)C)C",),
             )
 
-        molecule_to_test = st.text_input(
-            "Press Try Aspirin or Ibuprofen - or enter below a molecular SMILES string for predicting its properties. Then press ENTER then CLICK submit "
-        )
-
+        # Use the custom keyup component for text input
+        molecule_to_test = st_keyup(label="Enter a molecular SMILES string", value=st.session_state.get('molecule_to_test', ''))
         submit_molecule = st.button(
             "Submit",
             on_click=molecule_submitted,
@@ -652,6 +632,7 @@ if __name__ == "__main__":
             )
         with z:
             st.write("")
+
 
 st.markdown(
     """
