@@ -1,8 +1,9 @@
 # Uncomment if run locally
-import sys, os
+import os
 
-sys.path.append(os.path.abspath("../../../molvault"))
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+# import sys
+# sys.path.append(os.path.abspath("../../../molvault"))
+# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from requests import head
 from concrete.ml.deployment import FHEModelClient
@@ -60,7 +61,7 @@ formatted_text = (
     "<h1 style='text-align: center;'>"
     "<span style='color: red;'>Pharmacokinetics</span>"
     "<span style='color: black;'> of </span>"
-    "<span style='color: blue;'>confidential</span>"
+    "<span style='color: blue;'>🤫confidential🤫</span>"
     "<span style='color: black;'> molecules</span>"
     "</h1>"
 )
@@ -80,15 +81,18 @@ This way organization "A" can benefit from ML services provided by organization 
 The server on which the prediction is computed will never see the molecule in clear text, but will still compute an encrypted prediction.
 Why is this **magic**? Because this is equivalent to computing the prediction on the molecule in clear text, but without sharing the molecule with the server.
 Even if organization "B" - or in fact any other party - would try to steal the data, they would only see the encrypted molecular data.
-Only the party that has the private key (organization "A") can decrypt the prediction. This is possible using a method called "Fully homomorphic encryption" (FHE). This special encryption scheme allows to perform computations on encrypted data.
+Only the party that has the private key (organization "A") can decrypt the prediction. This is possible using a method called "Fully homomorphic encryption" (FHE). 
+This special encryption scheme allows to perform computations on encrypted data.
+The code used for the FHE prediction is available in the open-source library <a href="https://docs.zama.ai/concrete-ml" target="_blank">Concrete ML</a>.
 \n
 **What are the steps involved?**
 \n
-Find out below! You can try it out yourself by entering a molecule and clicking on the buttons.
+Find out below! 👇 
+You can try it out yourself by entering a molecule and clicking on the buttons.
 """
 
 st.markdown(
-    f'{interesting_text}',
+    f"{interesting_text}",
     unsafe_allow_html=True,
 )
 
@@ -523,7 +527,7 @@ if __name__ == "__main__":
 
         # Use the custom keyup component for text input
         molecule_to_test = st_keyup(
-            label="Enter a molecular SMILES string",
+            label="Enter a molecular SMILES string or click on one of the buttons above",
             value=st.session_state.get("molecule_to_test", ""),
         )
         submit_molecule = st.button(
@@ -648,7 +652,7 @@ st.markdown(
     """
     <div style="width: 100%; text-align: center; padding: 10px;">
         The app was built with <a href="https://docs.zama.ai/concrete-ml" target="_blank">Concrete ML</a>,
-        a Privacy-Preserving Machine Learning (PPML) open-source set of tools by Zama.
+        an open-source library by <a href="https://www.zama.ai/" target="_blank">Zama</a>.
     </div>
     """,
     unsafe_allow_html=True,

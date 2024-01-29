@@ -88,8 +88,7 @@ Note that the name of the column containing the SMILES strings must be "SMILES" 
 The default regression model is support vector regression `"SVR"`, passed in the `--regtype` option. To change to XGBoost, use `"XGB"`.
 As an output you will first get the hyperparameters of the best model. If needed you can change the hyperparameter grid in the `regress_utils.py` file.
 
-Next, predictions on the same points using the sklearn model and its FHE counterpart will be printed as well as their Pearson correlation coefficient. Also the error and Pearson correlation with the true values will be printed for the FHE model.
-Finally the model is saved in the `deploy` folder. You may change the folder name using the `--deploy` option.
+Predictions on the same points using the sklearn model and its FHE counterpart will be printed as well as their Pearson correlation coefficient. Also the error and Pearson correlation  compared to the true values will be printed for the FHE model. Finally, the model is saved in the `deploy` folder. You may change the folder name using the `--deploy` option.
 
 
 ## Tutorial
@@ -121,7 +120,10 @@ Note: You can download the pretrained models from the huggingface space.
 [1] Fang, C., Wang, Y., Grater, R., Kapadnis, S., Black, C., Trapa, P., & Sciabola, S. (2023). Prospective Validation of Machine Learning Algorithms for Absorption, Distribution, Metabolism, and Excretion Prediction: An Industrial Perspective. _Journal of Chemical Information and Modeling, 63_(11), 3263-3274. [https://doi.org/10.1021/acs.jcim.3c00160](https://doi.org/10.1021/acs.jcim.3c00160)
 
 The dataset used to traing the ML models for the app can be found at:
-`https://github.com/molecularinformatics/Computational-ADME`
+
+https://github.com/molecularinformatics/Computational-ADME
+
+
 
 
 <p align="center">
