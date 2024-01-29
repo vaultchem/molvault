@@ -5,47 +5,41 @@
 </p>
 
 
-## Predict properties of molecules using machine learning? 
-**Yes, please!** 
+## Predict properties of 🤫CONFIDENTIAL🤫 molecules🧬 using machine learning? 
+## Concerned about leaking your data to a competitor🕵️‍♂️
 
-### Concerned about sharing your molecules with the world?
-**We too!** 
 
 #### Introducing MolVault from <a href='https://vaultchem.com/'>VaultChem</a></h6>
-*MolVault* is an application that enables you to predict properties of your molecules **without sharing them publicly**.
-You can send an encrypted version of your molecule to our server, which will perform the prediction and send back the encrypted result.
+*MolVault* is an application that enables predicting properties of confidential molecules **without sharing them publicly**.
+
+
+Machine learning (ML) has become a cornerstone of modern drug discovery. However, the data used to evaluate the ML models is often confidential. This is especially true for the pharmaceutical industry  where new drug candidates 💊 are considered as the most valuable asset. Therefore chemical companies are reluctant to share their data with third parties, for instance to use ML services provided by other companies. 
+
+Only an encrypted version of the molecule is sent to as server. The molecule will remain encrypted EVEN when the prediction is computed. Only the party that holds the private key can decrypt the result.
+
+
 
  🪄 **The magic?** 🪄
 
-The server will never see the molecule in clear text, and you will be the only one able to decrypt the result.
+The server on which the prediction is computed will never see the molecule in clear text, but will still compute an encrypted prediction. Why is this magic? Because this is equivalent to computing the prediction on the molecule in clear text, but without sharing the molecule with the server. Even if organization "B" - or in fact any other party - would try to steal the data, they would only see the encrypted molecular data. Only the party that has the private key (organization "A") can decrypt the prediction. This is possible using a method called "Fully homomorphic encryption" (FHE). This special encryption scheme allows to perform computations on encrypted data.
 
-#### How?
-Find out below!
 
+**What are the steps involved?**
+
+Find out below! 👇
+Or try it out yourself on huggingface:
+
+[![Hugging Face Space](https://img.shields.io/badge/Hugging%20Face-Space-blue)](https://huggingface.co/spaces/vaultchem/molvault)
 
 <p align="center">
   <img src="./examples/huggingface/app/ablauf.png" width="120%" height="40%" />
 </p>
 
+## Background
 
-Here we present the first public demonstration of encrypted prediction of pharmacokinetic properties. As shown above, the steps are as follows:
+MolVault is built on [ZAMAs](https://www.zama.ai/) library [concrete-ml](https://github.com/zama-ai/concrete-ml) for fully homomorpic encryption (FHE). Consider pharma company A to be interested in properties of drug candidate molecules: for instance understanding pharmacokinetic properties is crucial for determining a drug candidate's concentration profile at its action site, significantly impacting the drug's effectiveness[1].
 
-0) Select a pharmacokinetic property of interest
-1) Define the molecule for the prediction
-2) Generate a key pair
-3) Encrypt molecule, send it to server
-4) 🪄**Magic happens here**🪄 The prediction is performed while the data is still encrypted
-5) Encrypted prediction is sent back and user can decrypt
-
-**Background**
-
-MolVault is built on Zamas `concrete-ml` library for fully homomorpic encryption (FHE). Consider pharma company A to be interested in properties of drug candidate molecules: for instance understanding pharmacokinetic properties is crucial for determining a drug candidate's concentration profile at its action site, significantly impacting the drug's effectiveness [1].
-
-Party A may not have sufficient data available for reliable ML predictions. Instead, A will securely obtain predictions on molecular data from an untrusted party B that owns a secret database and an ML model with sufficient training data. This is only possible using FHE to guarantee party A will not reveal the secret query to party B. Here this scenario is simulated with open-source chemistry datasets and tools based on cheminformatics `rdkit` and FHE `concrete-ml`. We give an end-to-end solution to the problem of privacy-preserving prediction for molecules. 
-
-We have also published an app on hugging face that allows you to make predictions on your molecules without sharing them with the world.
-
-(link ..)
+Organization "A" may not have sufficient data available for reliable ML predictions. Instead, "A" can securely obtain predictions on molecular data from an untrusted party "B" that owns a secret database and an ML model with sufficient training data. This is only possible using FHE to guarantee party A will not reveal the secret query to party "B". Here this scenario is simulated with open-source chemistry datasets and tools based on cheminformatics `rdkit` and FHE `concrete-ml`. We give an end-to-end solution to the problem of privacy-preserving prediction for molecules. 
 
 ## Installation
 

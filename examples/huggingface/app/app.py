@@ -1,5 +1,6 @@
 # Uncomment if run locally
 import sys, os
+
 sys.path.append(os.path.abspath("../../../molvault"))
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
@@ -27,10 +28,19 @@ from st_keyup import st_keyup
 st.set_page_config(layout="wide")
 
 
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+
+local_css("style.css")
+
+
 def img_to_bytes(img_path):
     img_bytes = Path(img_path).read_bytes()
     encoded = base64.b64encode(img_bytes).decode()
     return encoded
+
 
 def img_to_html(img_path, width=None):
     img_bytes = img_to_bytes(img_path)
@@ -47,44 +57,46 @@ def img_to_html(img_path, width=None):
 
 # Start timing
 formatted_text = (
-"<h1 style='text-align: center; color: blue;'>VaultChem</h1>"
-"<h1 style='text-align: center;'>"
-"<span style='color: red;'>Pharmacokinetics</span>"
-"<span style='color: black;'> of </span>"
-"<span style='color: blue;'>confidential</span>"
-"<span style='color: black;'> molecules</span>"
-"</h1>"
+    "<h1 style='text-align: center;'>"
+    "<span style='color: red;'>Pharmacokinetics</span>"
+    "<span style='color: black;'> of </span>"
+    "<span style='color: blue;'>confidential</span>"
+    "<span style='color: black;'> molecules</span>"
+    "</h1>"
 )
 
 st.markdown(formatted_text, unsafe_allow_html=True)
 
 interesting_text = """
-## Predict properties of molecules, but concerned about obtaining the predictions from an untrusted server?
-\n
-This is exactly the kind of problem chemical companies face if they want to use machine learning (ML) to predict the properties of molecules.
-
-#### Introducing MolVault from VaultChem
+Machine learning (**ML**) has become a cornerstone of modern drug discovery. However, the data used to evaluate the ML models is often **confidential**.
+This is especially true for the pharmaceutical industry where new drug candidates are considered as the most valuable asset.
+Therefore chemical companies are reluctant to share their data with third parties, for instance to use ML services provided by other companies.
 We developed an application that allows predicting properties of molecules **without sharing them**.
 That means an organization "A" can use any server - even an untrusted environment - outside of their infrastructure to perform the prediction.
 This way organization "A" can benefit from ML services provided by organization "B" without sharing their confidential data.
-\n 
+
 🪄 **The magic?** 🪄
-\n
+
 The server on which the prediction is computed will never see the molecule in clear text, but will still compute an encrypted prediction.
 Why is this **magic**? Because this is equivalent to computing the prediction on the molecule in clear text, but without sharing the molecule with the server.
 Even if organization "B" - or in fact any other party - would try to steal the data, they would only see the encrypted molecular data.
 Only the party that has the private key (organization "A") can decrypt the prediction. This is possible using a method called "Fully homomorphic encryption" (FHE). This special encryption scheme allows to perform computations on encrypted data.
 \n
-##### What are the steps involved?
+**What are the steps involved?**
+\n
 Find out below! You can try it out yourself by entering a molecule and clicking on the buttons.
 """
 
-st.markdown(interesting_text)
+st.markdown(
+    f'{interesting_text}',
+    unsafe_allow_html=True,
+)
+
 st.divider()
 
 st.markdown(
     "<p style='text-align: center; color: grey;'>"
-    + img_to_html("scheme2.png", width="80%")
+    + img_to_html("scheme2.png", width="50%")
     + "</p>",
     unsafe_allow_html=True,
 )
@@ -154,6 +166,7 @@ def keygen():
     numpy.save(f"tmp/tmp_evaluation_key_{user_id}.npy", evaluation_key)
 
     return [list(evaluation_key)[:ENCRYPTED_DATA_BROWSER_LIMIT], user_id]
+
 
 @st.cache_data
 def encode_quantize_encrypt(text, user_id):
@@ -329,7 +342,7 @@ def init_session_state():
         ] = ""  # actually a list of list. But python takes care as it is dynamically typed.
 
 
-def molecule_submitted(text: str = st.session_state.get('molecule_to_test', '')):
+def molecule_submitted(text: str = st.session_state.get("molecule_to_test", "")):
     msg_to_user = ""
     if len(text) == 0:
         msg_to_user = "Enter a non-empty molecule formula."
@@ -381,6 +394,7 @@ def mol_to_img(mol):
     svg = drawer.GetDrawingText()
     return cairosvg.svg2png(bytestring=svg.encode("utf-8"))
 
+
 def FHE_util():
     run_fhe(st.session_state["user_id"])
 
@@ -425,9 +439,7 @@ data_dict = {
 }
 
 # Convert the dictionary to a DataFrame
-data = pd.DataFrame(
-    list(data_dict.items()), columns=["Property", "Explanation"]
-)
+data = pd.DataFrame(list(data_dict.items()), columns=["Property", "Explanation"])
 
 user_id = 0
 
@@ -510,7 +522,10 @@ if __name__ == "__main__":
             )
 
         # Use the custom keyup component for text input
-        molecule_to_test = st_keyup(label="Enter a molecular SMILES string", value=st.session_state.get('molecule_to_test', ''))
+        molecule_to_test = st_keyup(
+            label="Enter a molecular SMILES string",
+            value=st.session_state.get("molecule_to_test", ""),
+        )
         submit_molecule = st.button(
             "Submit",
             on_click=molecule_submitted,
