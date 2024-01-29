@@ -30,7 +30,7 @@ Or try it out yourself on huggingface:
 [![Hugging Face Space](https://img.shields.io/badge/Hugging%20Face-Space-blue)](https://huggingface.co/spaces/vaultchem/molvault)
 
 <p align="center">
-  <img src="./examples/huggingface/app/ablauf.png" width="120%" height="40%" />
+  <img src="./examples/huggingface/app/scheme2.png" width="120%" height="40%" />
 </p>
 
 ## Background
