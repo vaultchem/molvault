@@ -1,10 +1,8 @@
 import numpy as np
 import json
 import matplotlib.pyplot as plt
-import pdb
 
-# load the results from the json file
-
+# load the results from the json file and plot the timing results
 with open("./models/XGB/FHE_timings.json") as json_file:
     xgb_data = json.load(json_file)["XGB"]
     xgb_timings, xgb_errors = np.array(xgb_data[0]), np.array(xgb_data[1])
@@ -42,6 +40,4 @@ with open("./models/SVR/FHE_timings.json") as json_file:
         averaged_timings_svr[i, :2] = key
         averaged_timings_svr[i, 2] = np.mean(svr_timings[indices == i, 2])
 
-
-pdb.set_trace()
 print("Done")
