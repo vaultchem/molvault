@@ -4,16 +4,16 @@
 
 
 ## Predict properties of 🤫CONFIDENTIAL🤫 molecules🧬 using machine learning🤖? 
-## Concerned about leaking your data to a competitor🕵️‍♂️
+## Concerned about leaking your data to a competitor🕵️‍♂️?
 
 
 #### Introducing MolVault from <a href='https://vaultchem.com/'>VaultChem</a></h6>
-*MolVault* is an application that enables predicting properties of confidential molecules **without sharing them publicly**.
+*MolVault* is an application that enables predicting properties of confidential molecules using an untrusted server **without sharing them publicly**.
 
 
 Machine learning (ML) has become a cornerstone of modern drug discovery. However, the data used to evaluate the ML models is often confidential. This is especially true for the pharmaceutical industry  where new drug candidates 💊 are considered as the most valuable asset. Therefore chemical companies are reluctant to share their data with third parties, for instance to use ML services provided by other companies. 
 
-Only an encrypted version of the molecule is sent to as server. The molecule will remain encrypted EVEN when the prediction is computed. Only the party that holds the private key can decrypt the result.
+Using *MolVault* Only an encrypted version of the molecule is sent to as server. The molecule will remain encrypted EVEN when the prediction is computed. Only the party that holds a private key can decrypt the result.
 
 
 
@@ -35,7 +35,7 @@ Or try it out yourself on huggingface:
 
 ## Background
 
-MolVault is built on [ZAMAs](https://www.zama.ai/) library [concrete-ml](https://github.com/zama-ai/concrete-ml) for fully homomorpic encryption (FHE). Consider pharma company A to be interested in properties of drug candidate molecules: for instance understanding pharmacokinetic properties is crucial for determining a drug candidate's concentration profile at its action site, significantly impacting the drug's effectiveness[1].
+MolVault is built on [ZAMAs](https://www.zama.ai/) library [concrete-ml](https://github.com/zama-ai/concrete-ml) for fully homomorpic encryption (FHE). Consider pharma company "A" to be interested in properties of drug candidate molecules: for instance understanding pharmacokinetic properties is crucial for determining a drug candidate's effectiveness [1].
 
 Organization "A" may not have sufficient data available for reliable ML predictions. Instead, "A" can securely obtain predictions on molecular data from an untrusted party "B" that owns a secret database and an ML model with sufficient training data. This is only possible using FHE to guarantee party A will not reveal the secret query to party "B". Here this scenario is simulated with open-source chemistry datasets and tools based on cheminformatics `rdkit` and FHE `concrete-ml`. We give an end-to-end solution to the problem of privacy-preserving prediction for molecules. 
 
