@@ -26,7 +26,7 @@ from rdkit.Chem.Draw import rdMolDraw2D
 import pandas as pd
 from st_keyup import st_keyup
 
-st.set_page_config(layout="wide")
+st.set_page_config(layout="centered", page_title="VaultChem")
 
 
 def local_css(file_name):
@@ -100,7 +100,7 @@ st.divider()
 
 st.markdown(
     "<p style='text-align: center; color: grey;'>"
-    + img_to_html("scheme2.png", width="50%")
+    + img_to_html("scheme2.png", width="80%")
     + "</p>",
     unsafe_allow_html=True,
 )
