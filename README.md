@@ -1,11 +1,9 @@
-# MolVault
-
 <p align="center">
   <img src="logo_app.png" width="30%" height="40%" />
 </p>
 
 
-## Predict properties of 🤫CONFIDENTIAL🤫 molecules🧬 using machine learning? 
+## Predict properties of 🤫CONFIDENTIAL🤫 molecules🧬 using machine learning🤖? 
 ## Concerned about leaking your data to a competitor🕵️‍♂️
 
 
