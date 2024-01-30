@@ -91,7 +91,7 @@ The code used for the FHE prediction is available in the open-source library
 **What are the steps involved?**
 \n
 Find out below! 👇 
-You can try it out yourself by entering a molecule and clicking on the buttons.
+You can try it for yourself! 🎉
 """
 
 st.markdown(
@@ -530,7 +530,7 @@ if __name__ == "__main__":
 
         # Use the custom keyup component for text input
         molecule_to_test = st_keyup(
-            label="Enter a molecular SMILES string or click on one of the buttons above",
+            label="Enter a molecular SMILES string or choose one of the two options",
             value=st.session_state.get("molecule_to_test", ""),
         )
         submit_molecule = st.button(
@@ -563,7 +563,7 @@ if __name__ == "__main__":
         """
         st.markdown(bullet_points, unsafe_allow_html=True)
         button_gen_key = st.button(
-            "Click Here to generate Keys for this session", on_click=keygen_util
+            "Generate Keys for this session", on_click=keygen_util
         )
         if st.session_state["key_generated"] == True:
             st.success("Keys generated successfully", icon="🙌")
@@ -580,7 +580,7 @@ if __name__ == "__main__":
         st.subheader(
             f"Step 3 : Encrypt molecule using private key and send it to server."
         )
-        encrypt_button = st.button("Click to Encrypt", on_click=encrpyt_data_util)
+        encrypt_button = st.button("Encrypt molecule", on_click=encrpyt_data_util)
         if st.session_state["encrypt"] == True:
             st.success("Successfully Encrypted Data", icon="🙌")
             st.text("The server can only see the encrypted data:")
@@ -594,7 +594,7 @@ if __name__ == "__main__":
 
     with st.container():
         st.subheader(f"Step 4 : Run encrypted prediction on server side.")
-        fhe_button = st.button("Click to Predict in FHE domain", on_click=FHE_util)
+        fhe_button = st.button("Predict in FHE domain", on_click=FHE_util)
         if st.session_state["fhe_done"]:
             st.success("Prediction Done Successfuly in FHE domain", icon="🙌")
             st.code(
@@ -624,7 +624,7 @@ if __name__ == "__main__":
 
     with st.container():
         st.subheader(f"Step 6 : Reset to predict a new molecule")
-        reset_button = st.button("Click Here to Reset", on_click=clear_session_state)
+        reset_button = st.button("Reset app", on_click=clear_session_state)
         x, y, z = st.columns(3)
         with x:
             st.write("")

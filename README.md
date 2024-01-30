@@ -27,7 +27,7 @@ The server on which the prediction is computed will never see the molecule in cl
 Find out below! 👇
 Or try it out yourself on huggingface:
 
-[![Hugging Face Space](https://img.shields.io/badge/Hugging%20Face-Space-blue)](https://huggingface.co/spaces/vaultchem/molvault)
+[![Hugging Face Space](https://img.shields.io/badge/Hugging%20Face-Space-blue)](https://huggingface.co/spaces/VaultChem/molvault)
 
 <p align="center">
   <img src="./examples/huggingface/app/scheme2.png" width="120%" height="40%" />
