@@ -1,8 +1,8 @@
 # Uncomment if run locally
 import os
-import sys
-sys.path.append(os.path.abspath("../../../molvault"))
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+#import sys
+#sys.path.append(os.path.abspath("../../../molvault"))
+#sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from requests import head
 from concrete.ml.deployment import FHEModelClient
@@ -70,8 +70,9 @@ st.markdown(formatted_text, unsafe_allow_html=True)
 interesting_text = """
 Machine learning (**ML**) has become a cornerstone of modern drug discovery. However, the data used to evaluate the ML models is often **confidential**.
 This is especially true for the pharmaceutical industry where new drug candidates are considered as the most valuable asset.
-Therefore chemical companies are reluctant to share their data with third parties, for instance to use ML services provided by other companies.
-We developed an application that allows predicting properties of molecules **without sharing them**.
+Therefore chemical companies are reluctant to share their data with third parties, for instance, to use ML services provided by other companies.
+
+🔒**We implemented a workflow that allows predicting properties of a molecule with third-party models without sharing them**🔒.
 That means an organization "A" can use any server - even an untrusted environment - outside of their infrastructure to perform the prediction.
 This way organization "A" can benefit from ML services provided by organization "B" without sharing their confidential data.
 
@@ -80,9 +81,12 @@ This way organization "A" can benefit from ML services provided by organization 
 The server on which the prediction is computed will never see the molecule in clear text, but will still compute an encrypted prediction.
 Why is this **magic**? Because this is equivalent to computing the prediction on the molecule in clear text, but without sharing the molecule with the server.
 Even if organization "B" - or in fact any other party - would try to steal the data, they would only see the encrypted molecular data.
-Only the party that has the private key (organization "A") can decrypt the prediction. This is possible using a method called "Fully homomorphic encryption" (FHE). 
+**Only the party that has the private key (organization "A") can decrypt the prediction**. This is possible using a method called "Fully Homomorphic Encryption" (FHE). 
 This special encryption scheme allows to perform computations on encrypted data.
-The code used for the FHE prediction is available in the open-source library <a href="https://docs.zama.ai/concrete-ml" target="_blank">Concrete ML</a>.
+
+We use the open-source library <a href="https://docs.zama.ai/concrete-ml" target="_blank">Concrete ML</a> to develop safe and robust encryption technology.
+
+The code used for the FHE prediction is available in the open-source library 
 \n
 **What are the steps involved?**
 \n
