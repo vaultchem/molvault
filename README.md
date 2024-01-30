@@ -13,8 +13,7 @@
 
 Machine learning (ML) has become a cornerstone of modern drug discovery. However, the data used to evaluate the ML models is often confidential. This is especially true for the pharmaceutical industry  where new drug candidates 💊 are considered as the most valuable asset. Therefore chemical companies are reluctant to share their data with third parties, for instance to use ML services provided by other companies. 
 
-Using *MolVault* Only an encrypted version of the molecule is sent to as server. The molecule will remain encrypted EVEN when the prediction is computed. Only the party that holds a private key can decrypt the result.
-
+Using *MolVault* only an encrypted version of the molecular data is sent to as server. The data will remain encrypted EVEN when the prediction is computed. Only the party that holds a private key can decrypt the result.
 
 
  🪄 **The magic?** 🪄
