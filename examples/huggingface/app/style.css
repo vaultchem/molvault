@@ -2,7 +2,16 @@ html,
 body,
 [class*="css"] {
     font-family: 'Roboto', sans-serif;
-    font-size: 27px;
+    font-size: 20px; /* Default font size for larger screens */
     font-weight: 500;
     color: #091747;
+}
+
+/* Media query for small screens */
+@media (max-width: 767px) {
+    html,
+    body,
+    [class*="css"] {
+        font-size: 28px; /* Larger font size for small screens */
+    }
 }
