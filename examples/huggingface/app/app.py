@@ -1,6 +1,7 @@
 # Uncomment if run locally
 import os
 #import sys
+#
 #sys.path.append(os.path.abspath("../../../molvault"))
 #sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
@@ -17,7 +18,6 @@ import shutil
 import time
 from chemdata import get_ECFP_AND_FEATURES
 import streamlit as st
-import subprocess
 import cairosvg
 from rdkit import Chem
 from rdkit.Chem import AllChem
@@ -476,11 +476,11 @@ if __name__ == "__main__":
 
     with st.container():
         st.header(":green[Start]")
-        st.text(
-            "Run all the steps in order to predict the molecule's property. Why not all steps at once? Because we want to show you the steps involved in the process."
+        st.markdown(
+            "Run all the steps in order to predict a property for a molecule of your choice. Why not all steps at once? Because we want to show you the steps involved in the process (see figure above)."
         )
         st.subheader("Step 0: Which property do you want to predict?")
-        st.text(
+        st.markdown(
             "This app can predict the following properties of confidential molecules:"
         )
 
@@ -497,7 +497,7 @@ if __name__ == "__main__":
 
         # Display the HTML table
         st.write(html, unsafe_allow_html=True)
-        st.text("Which to predict?")
+        st.markdown("Which one do you want to predict?")
         selected_label = st.selectbox(
             "Choose a property",
             task_options,
