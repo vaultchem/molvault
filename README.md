@@ -103,17 +103,25 @@ The `tutorial.ipynb` notebook for MolVault provides a guide on using the applica
 
 4) Use the model to make predictions on new molecules, including examples with molecules like Vitamin D, Ethanol, and Ibuprofen. This section highlights the application's capability to make predictions without revealing the molecular structures to the server.
 
-## Huggingface space
+## User Interface
 
-Here we show all the scripts that are needed to run the MolVault app on huggingface and fit to obtain the set of FHE models used in the app.
+The easiest way to run the app is via the huggingface space (see above).
+Alternatively, after following the installation instruction you can launch the app with:
 
-To fit SVR and XGB to all properties contained in the ADME dataset [1], run:
+1. Navigate to the `examples/huggingface/app` folder
+2. Unzip the `deployment.zip` file using `unzip deployment.zip`
+3. Run `bash run_app.sh` to start the app
+4. Open you browser and go to `http://localhost:8501/`
+
+## Model fitting
+
+To fit FHE models with SVR and XGB to all properties contained in the ADME dataset [1], run:
 
 `python fit_all.py`
 
 This will result in a subfolder `models` containing the fitted models that can readily be used for the app and a file `FHE_timings.json` containing the timings for the FHE models.
 
-Note: You can download the pretrained models from the huggingface space.
+Note: By default, this involves extensive hyperparameter search. In particular, computing the XGB models can be computationally demanding. You can also download the pretrained models from the huggingface space.
 
 #### References
 
