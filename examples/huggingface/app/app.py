@@ -175,7 +175,6 @@ def keygen():
     return [list(evaluation_key)[:ENCRYPTED_DATA_BROWSER_LIMIT], user_id]
 
 
-@st.cache_data
 def encode_quantize_encrypt(text, user_id):
     task = st.session_state["task"]
     fhe_api = FHEModelClient(f"deployment/deployment_{task}", f".fhe_keys/{user_id}")
@@ -390,7 +389,6 @@ def encrpyt_data_util():
         st.session_state["encrypt"] = True
 
 
-@st.cache_data
 def mol_to_img(mol):
     mol = Chem.MolFromSmiles(mol)
     mol = AllChem.RemoveHs(mol)
