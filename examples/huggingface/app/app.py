@@ -1,9 +1,9 @@
 # Uncomment if run locally
 import os
-#import sys
+import sys
 #
-#sys.path.append(os.path.abspath("../../../molvault"))
-#sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+sys.path.append(os.path.abspath("../../../molvault"))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from requests import head
 from concrete.ml.deployment import FHEModelClient
@@ -60,7 +60,7 @@ formatted_text = (
     "<h1 style='text-align: center;'>"
     "<span style='color: red;'>Pharmacokinetics</span>"
     "<span style='color: black;'> of </span>"
-    "<span style='color: blue;'>🤫confidential🤫</span>"
+    "<span style='color: blue;'>🤫confidential</span>"
     "<span style='color: black;'> molecules</span>"
     "</h1>"
 )
@@ -82,9 +82,9 @@ The server on which the prediction is computed will never see the molecule in cl
 Why is this **magic**? Because this is equivalent to computing the prediction on the molecule in clear text, but without sharing the molecule with the server.
 Even if organization "B" - or in fact any other party - would try to steal the data, they would only see the encrypted molecular data.
 **Only the party that has the private key (organization "A") can decrypt the prediction**. This is possible using a method called "Fully Homomorphic Encryption" (FHE). 
-This special encryption scheme allows to perform computations on encrypted data.
+This special encryption scheme allows to perform computations on encrypted data, to learn more about FHE, click [here](https://fhe.org/resources/).
 
-We use the open-source library <a href="https://docs.zama.ai/concrete-ml" target="_blank">Concrete ML</a> to develop safe and robust encryption technology.
+We use the open-source library <a href="https://github.com/zama-ai/concrete-ml" target="_blank">Concrete-ML</a> to develop safe and robust encryption technology.
 
 The code used for the FHE prediction is available in the open-source library 
 \n
@@ -103,7 +103,7 @@ st.divider()
 
 st.markdown(
     "<p style='text-align: center; color: grey;'>"
-    + img_to_html("scheme2.png", width="80%")
+    + img_to_html("scheme2.png", width="96%")
     + "</p>",
     unsafe_allow_html=True,
 )
@@ -652,7 +652,7 @@ if __name__ == "__main__":
 st.markdown(
     """
     <div style="width: 100%; text-align: center; padding: 10px;">
-        The app was built with <a href="https://docs.zama.ai/concrete-ml" target="_blank">Concrete ML</a>,
+        The app was built with <a href="https://github.com/zama-ai/concrete-ml" target="_blank">Concrete-ML</a>,
         an open-source library by <a href="https://www.zama.ai/" target="_blank">Zama</a>.
     </div>
     """,
