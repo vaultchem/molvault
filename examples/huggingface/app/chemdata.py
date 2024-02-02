@@ -153,60 +153,6 @@ def compute_descriptors_from_smiles_list(SMILES):
     return np.array(X)
 
 
-class ProcessToxChemData:
-    def __init__(self, bits=256):
-        self.bits = int(bits)
-        if not os.path.exists("data"):
-            os.makedirs("data")
-        self.save_file = "data/" + "save_file_Tox" + str(self.bits) + ".pkl"
-
-        if os.path.exists(self.save_file):
-            with open(self.save_file, "rb") as file:
-                self.adjusted_valid_entries_per_task = pickle.load(file)
-        else:
-            url = "https://github.com/deepchem/deepchem/blob/master/datasets/tox21.csv.gz?raw=true"
-            response = requests.get(url)
-            content = gzip.decompress(response.content)
-            self.df = pd.read_csv(BytesIO(content))
-            self.process()
-            self.save_adjusted_data()
-
-    def process(self):
-        self.adjusted_valid_entries_per_task = {}
-
-        # Iterating through each task column and extracting valid entries
-        for task in self.df.columns[
-            :-2
-        ]:  # Excluding mol_id and smiles from the iteration
-            valid_entries = self.df.dropna(subset=[task])[["mol_id", "smiles", task]]
-
-            valid_entries["fps"] = valid_entries["smiles"].apply(
-                lambda x: generate_fingerprint(x, radius=2, bits=self.bits)
-            )
-            valid_entries = valid_entries.dropna(subset=["fps"])
-            valid_entries["descriptors"] = valid_entries["smiles"].apply(
-                lambda x: compute_descriptors_from_smiles_list([x])[0]
-            )
-            valid_entries = valid_entries.dropna(subset=["descriptors"])
-            # Shuffle the rows
-            valid_entries = valid_entries.sample(frac=1, random_state=42).reset_index(
-                drop=True
-            )
-            self.adjusted_valid_entries_per_task[task] = valid_entries
-            self.adjusted_valid_entries_per_task[
-                task
-            ] = self.adjusted_valid_entries_per_task[task].rename(columns={task: "y"})
-
-    def save_adjusted_data(self):
-        with open(self.save_file, "wb") as file:
-            pickle.dump(self.adjusted_valid_entries_per_task, file)
-
-    def get_X_y(self, task):
-        X = np.float_(np.stack(self.adjusted_valid_entries_per_task[task].fps.values))
-        y = self.adjusted_valid_entries_per_task[task].y.values.astype(int)
-        return X, y
-
-
 class ProcessADMEChemData:
     def __init__(self, bits=512, radius=2):
         self.bits = int(bits)
@@ -291,7 +237,8 @@ def load_ADME_data(task, bits=256, radius=2):
     """
     data = ProcessADMEChemData(bits=bits, radius=radius)
     X, y = data.get_X_y(task)
-    return train_test_split(X, y, test_size=0.2, random_state=42)
+    SMILES = data.adjusted_valid_entries_per_task[task]["smiles"].values
+    return train_test_split(SMILES,X, y, test_size=0.2, random_state=42)
 
 
 class ProcessGenericChemData:

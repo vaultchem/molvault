@@ -1,9 +1,9 @@
 # Uncomment if run locally
 import os
-import sys
+#import sys
 #
-sys.path.append(os.path.abspath("../../../molvault"))
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+#sys.path.append(os.path.abspath("../../../molvault"))
+#sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from requests import head
 from concrete.ml.deployment import FHEModelClient
@@ -25,7 +25,7 @@ from rdkit.Chem.Draw import rdMolDraw2D
 import pandas as pd
 from st_keyup import st_keyup
 
-st.set_page_config(layout="centered", page_title="VaultChem")
+st.set_page_config(layout="wide", page_title="VaultChem")
 
 
 def local_css(file_name):
@@ -103,7 +103,7 @@ st.divider()
 
 st.markdown(
     "<p style='text-align: center; color: grey;'>"
-    + img_to_html("scheme2.png", width="96%")
+    + img_to_html("scheme2.png", width="65%")
     + "</p>",
     unsafe_allow_html=True,
 )
