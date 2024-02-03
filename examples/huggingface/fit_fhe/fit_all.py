@@ -14,6 +14,7 @@ from chemdata import *
 from regress_utils import *
 import json
 import matplotlib
+import pandas as pd
 
 matplotlib.use("Agg")  # Set the backend to 'Agg'
 
@@ -30,17 +31,17 @@ param_grid_linear = {
     "epsilon": [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.5],
     "C": [1e-3, 1e-2, 0.1, 0.5, 1.0, 5.0],
     "loss": ["epsilon_insensitive", "squared_epsilon_insensitive"],
-    "tol": [1e-3, 1e-4, 1e-5, 5e-5],
+    "tol": [1e-3, 1e-4, 1e-5, 1e-6],
     "max_iter": [int(4e4)],
     "dual": [True],
 }
 
 param_grid_xgboost = {
-    "n_estimators": np.arange(5, 120, 20),  # 100, 200, 300, 400, 500
-    "max_depth": np.arange(2, 10, 2),  # 3, 4, 5, 6, 7, 8, 9, 10
-    "learning_rate": np.linspace(0.01, 0.3, 5),  # 0.01, 0.0825, 0.155, 0.2275, 0.3
-    "reg_alpha": np.linspace(0, 0.5, 6),  # 0, 0.1, 0.2, 0.3, 0.4, 0.5
-    "reg_lambda": np.linspace(0, 0.5, 6),  # 0, 0.1, 0.2, 0.3, 0.4, 0.5
+    "n_estimators": np.arange(5, 120, 20),
+    "max_depth": [3, 5, 10, 20],
+    "learning_rate": np.logspace(-3, 0, 4),
+    "reg_alpha": np.linspace(0, 0.5, 6), 
+    "reg_lambda": np.linspace(0, 0.5, 6), 
 }
 
 all_tasks = [
@@ -51,7 +52,6 @@ all_tasks = [
     "LOG PLASMA PROTEIN BINDING (RAT) (% unbound)",
     "LOG RLM_CLint (mL/min/kg)",
 ]
-
 
 RESULTS = {}
 
@@ -69,7 +69,15 @@ for reg_type in ["XGB", "SVR"]:
         if not os.path.exists(f"{work_dir}"):
             os.makedirs(work_dir, exist_ok=True)
 
-        X_train, X_test, y_train, y_test = load_ADME_data(task, bits=1024, radius=2)
+        SMILES_train, SMILES_test, X_train, X_test, y_train, y_test = load_ADME_data(task, bits=1024, radius=2)
+
+        train_df, test_df = pd.DataFrame({"SMILES": SMILES_train.tolist(), "y": y_train}), pd.DataFrame(
+            {"SMILES": SMILES_test.tolist(), "y": y_test}
+        )
+        #save the train and test data to the deployment folder
+        train_df.to_csv(f"{work_dir}/train.csv", index=False)
+        test_df.to_csv(f"{work_dir}/test.csv", index=False)
+
         best_params, best_score, best_model = hyper_opt(
             X_train, y_train, param_grid=param_grid, regressor=reg_type, verbose=10
         )
@@ -102,7 +110,6 @@ for reg_type in ["XGB", "SVR"]:
             print("No hyperparameter file found. Please run the cell above first.")
 
         model_dev = train_zama(X_train, y_train, best_params, regressor=reg_type)
-
         prediction_time = time_prediction(model_dev, X_test[0])
 
         print(f"Time to predict one sample: {prediction_time:.2f} seconds")
