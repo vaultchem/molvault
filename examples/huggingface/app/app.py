@@ -428,7 +428,7 @@ task_mapping = {
 
 task_mapping_2 = {
     "0": "LOG HLM_CLint (mL/min/kg)",
-    "1":" LOG MDR1-MDCK ER (B-A/A-B)",
+    "1": "LOG MDR1-MDCK ER (B-A/A-B)",
     "2": "LOG SOLUBILITY PH 6.8 (ug/mL)",
     "3": "LOG PLASMA PROTEIN BINDING (HUMAN) (% unbound)",
     "4": "LOG PLASMA PROTEIN BINDING (RAT) (% unbound)",
