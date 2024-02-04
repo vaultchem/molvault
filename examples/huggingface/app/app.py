@@ -1,9 +1,9 @@
 # Uncomment if run locally
 import os
-#import sys
+import sys
 #
-#sys.path.append(os.path.abspath("../../../molvault"))
-#sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+sys.path.append(os.path.abspath("../../../molvault"))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from requests import head
 from concrete.ml.deployment import FHEModelClient
@@ -24,7 +24,8 @@ from rdkit.Chem import AllChem
 from rdkit.Chem.Draw import rdMolDraw2D
 import pandas as pd
 from st_keyup import st_keyup
-
+import pickle
+import numpy as np
 st.set_page_config(layout="wide", page_title="VaultChem")
 
 
@@ -415,6 +416,7 @@ def clear_session_state():
 # Define global variables outside main function scope.
 
 task_options = ["0", "1", "2", "3", "4", "5"]
+
 task_mapping = {
     "0": "HLM",
     "1": "MDR-1-MDCK-ER",
@@ -423,6 +425,18 @@ task_mapping = {
     "4": "Protein bind. rat",
     "5": "RLM",
 }
+
+task_mapping_2 = {
+    "0": "LOG HLM_CLint (mL/min/kg)",
+    "1":" LOG MDR1-MDCK ER (B-A/A-B)",
+    "2": "LOG SOLUBILITY PH 6.8 (ug/mL)",
+    "3": "LOG PLASMA PROTEIN BINDING (HUMAN) (% unbound)",
+    "4": "LOG PLASMA PROTEIN BINDING (RAT) (% unbound)",
+    "5": "LOG RLM_CLint (mL/min/kg)"
+}
+
+
+
 unit_mapping = {
     "0": "(mL/min/kg)",
     "1": " ",
@@ -431,6 +445,10 @@ unit_mapping = {
     "4": " (%)",
     "5": "(mL/min/kg)",
 }
+
+
+
+
 task_options = list(task_mapping.values())
 
 # Create the dropdown menu
@@ -617,8 +635,44 @@ if __name__ == "__main__":
                 f"The Molecule {st.session_state['input_molecule']} has a {task_label} value of {value} {unit}"
             )
             st.toast("Session successfully completed!!!")
+
+            
+            st.markdown("Is this a large, average or small value for this property? 🤔 Find out by comparing with the property distribution of the training dataset")
+            # now load the data from the pkl
+            with open("all_data.pkl", "rb") as f:
+                all_data = pickle.load(f)
+            import plotly.graph_objects as go
+
+            # Assuming task_mapping_2, all_data, and 'value' are defined elsewhere in your code.
+
+            task_label_2 = task_mapping_2[st.session_state["task"]]
+            data = all_data[task_label_2]
+
+
+            # Create a histogram
+            fig = go.Figure(go.Histogram(x=data, nbinsx=20, marker_color='blue', opacity=0.5))
+
+            # If you don't have specific y-values for the vertical line, you can set them to ensure the line spans the plot.
+            # Here, we're assuming a static range. You might want to adjust these based on your dataset's characteristics.
+            max_y_value = np.max(np.histogram(data, bins=20)[0]) # Calculate the max height of the histogram bars
+
+            fig.add_trace(go.Scatter(x=[value, value], y=[0, max_y_value * 1.1], mode="lines", name="Threshold", line=dict(color="red", dash="dash")))
+
+            # Update layout if necessary
+            fig.update_layout(
+                title="Comparison of the molecule's value with the distribution of the ADME dataset",
+                xaxis_title=task_label_2,
+                yaxis_title="Count",
+                bargap=0.2, # Adjust the gap between bars
+            )
+
+            # Display the figure in the Streamlit app
+            st.plotly_chart(fig)
         else:
             st.warning("Check if FHE computation has been done.")
+
+
+
 
     with st.container():
         st.subheader(f"Step 6 : Reset to predict a new molecule")
