@@ -29,9 +29,9 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 
 param_grid_linear = {
     "epsilon": [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.5],
-    "C": [1e-3, 1e-2, 0.1, 0.5, 1.0, 5.0],
+    "C": [1e-4,1e-3,2*1e-2, 1e-2, 0.1, 0.5, 1.0, 5.0],
     "loss": ["epsilon_insensitive", "squared_epsilon_insensitive"],
-    "tol": [1e-3, 1e-4, 1e-5, 1e-6],
+    "tol": [1e-2,1e-3, 1e-4, 1e-5, 1e-6, 1e-7],
     "max_iter": [int(4e4)],
     "dual": [True],
 }
@@ -39,9 +39,9 @@ param_grid_linear = {
 param_grid_xgboost = {
     "n_estimators": np.arange(5, 120, 20),
     "max_depth": [3, 5, 10, 20],
-    "learning_rate": np.logspace(-3, 0, 4),
-    "reg_alpha": np.linspace(0, 0.5, 6), 
-    "reg_lambda": np.linspace(0, 0.5, 6), 
+    "learning_rate": np.logspace(-3, 0, 8),
+    "reg_alpha": np.linspace(0, 1, 9), 
+    "reg_lambda": np.linspace(0, 2.0, 12), 
 }
 
 all_tasks = [
