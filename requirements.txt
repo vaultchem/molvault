@@ -16,3 +16,4 @@ CairoSVG==2.7.1
 rdkit-pypi==2022.9.5
 uvicorn==0.21.1
 streamlit-keyup==0.2.2
+plotly==5.18.0
