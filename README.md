@@ -20,7 +20,6 @@ Using *MolVault* only an encrypted version of the molecular data is sent to as s
 
 The server on which the prediction is computed will never see the molecule in clear text, but will still compute an encrypted prediction. Why is this magic? Because this is equivalent to computing the prediction on the molecule in clear text, but without sharing the molecule with the server. Even if organization "B" - or in fact any other party - would try to steal the data, they would only see the encrypted molecular data. Only the party that has the private key (organization "A") can decrypt the prediction. This is possible using a method called "Fully homomorphic encryption" (FHE). This special encryption scheme allows to perform computations on encrypted data.
 
-
 **What are the steps involved?**
 
 Find out below! 👇
