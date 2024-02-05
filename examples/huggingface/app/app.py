@@ -233,7 +233,7 @@ def run_fhe(user_id):
         query["evaluation_key"] = encoded_evaluation_key
         query["encrypted_encoding"] = encrypted_quantized_encoding
         headers = {"Content-type": "application/json"}
-        # pdb.set_trace()
+        
         if task == "0":
             response = requests.post(
                 "http://localhost:8000/predict_HLM",
@@ -272,11 +272,9 @@ def run_fhe(user_id):
             )
         else:
             print("Invalid task number")
-        # pdb.set_trace()
+        
         encrypted_prediction = base64.b64decode(response.json()["encrypted_prediction"])
-
-        # Save encrypted_prediction in a file, since too large to pass through regular Gradio
-        # buttons, https://github.com/gradio-app/gradio/issues/1877
+        
         numpy.save(f"tmp/tmp_encrypted_prediction_{user_id}.npy", encrypted_prediction)
         encrypted_prediction_shorten = list(encrypted_prediction)[
             :ENCRYPTED_DATA_BROWSER_LIMIT
@@ -436,7 +434,6 @@ task_mapping_2 = {
 }
 
 
-
 unit_mapping = {
     "0": "(mL/min/kg)",
     "1": " ",
@@ -445,8 +442,6 @@ unit_mapping = {
     "4": " (%)",
     "5": "(mL/min/kg)",
 }
-
-
 
 
 task_options = list(task_mapping.values())
@@ -636,7 +631,6 @@ if __name__ == "__main__":
             )
             st.toast("Session successfully completed!!!")
 
-            
             st.markdown("Is this a large, average or small value for this property? 🤔 Find out by comparing with the property distribution of the training dataset")
             # now load the data from the pkl
             with open("all_data.pkl", "rb") as f:
@@ -648,31 +642,35 @@ if __name__ == "__main__":
             task_label_2 = task_mapping_2[st.session_state["task"]]
             data = all_data[task_label_2]
 
-
             # Create a histogram
-            fig = go.Figure(go.Histogram(x=data, nbinsx=20, marker_color='blue', opacity=0.5))
+            fig = go.Figure(
+                go.Histogram(
+                    x=data,
+                    nbinsx=20,
+                    marker_color="blue",
+                    opacity=0.5,
+                    name="ADME dataset",
+                )
+            )
 
             # If you don't have specific y-values for the vertical line, you can set them to ensure the line spans the plot.
             # Here, we're assuming a static range. You might want to adjust these based on your dataset's characteristics.
             max_y_value = np.max(np.histogram(data, bins=20)[0]) # Calculate the max height of the histogram bars
 
-            fig.add_trace(go.Scatter(x=[value, value], y=[0, max_y_value * 1.1], mode="lines", name="Threshold", line=dict(color="red", dash="dash")))
+            fig.add_trace(go.Scatter(x=[value, value], y=[0, max_y_value * 1.1], mode="lines", name="Prediction", line=dict(color="red", dash="dash")))
 
             # Update layout if necessary
             fig.update_layout(
                 title="Comparison of the molecule's value with the distribution of the ADME dataset",
                 xaxis_title=task_label_2,
                 yaxis_title="Count",
-                bargap=0.2, # Adjust the gap between bars
+                bargap=0.2,
             )
 
             # Display the figure in the Streamlit app
             st.plotly_chart(fig)
         else:
             st.warning("Check if FHE computation has been done.")
-
-
-
 
     with st.container():
         st.subheader(f"Step 6 : Reset to predict a new molecule")
