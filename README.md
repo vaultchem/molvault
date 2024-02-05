@@ -40,7 +40,7 @@ Consider pharma company "A" to be interested in the properties of drug candidate
 
 The organization "A" may not have sufficient data available for reliable ML predictions. Instead, "A" can securely obtain predictions on molecular data from an untrusted party "B" which owns a secret database and an ML model with sufficient training data. This is only possible using FHE to guarantee "A" will not reveal the secret query to party "B". Here this scenario is simulated with open-source chemistry datasets and tools based on cheminformatics `rdkit` and FHE `Concrete-ml`. We give an end-to-end solution to the problem of privacy-preserving prediction for molecules. 
 
-In this [tutorial](https://github.com/vaultchem/molvault/blob/main/examples/tutorial/tutorial.ipynb) we will walk you through the details of training a machine learning model on a chemistry dataset, deploying the model with fully homomorphic encryption, and using the model to make predictions on new molecules.
+In this [**tutorial**](https://github.com/vaultchem/molvault/blob/main/examples/tutorial/tutorial.ipynb) we will walk you through the details of training a machine learning model on a chemistry dataset, deploying the model with fully homomorphic encryption, and using the model to make predictions on new molecules.
 
 ## Installation
 
