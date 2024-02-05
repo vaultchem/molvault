@@ -1,8 +1,8 @@
 import os
-import sys
 # Uncomment if run locally
-sys.path.append(os.path.abspath("../../../molvault"))
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+# import sys
+# sys.path.append(os.path.abspath("../../../molvault"))
+# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from requests import head
 from concrete.ml.deployment import FHEModelClient
@@ -67,7 +67,7 @@ formatted_text = (
 
 st.markdown(formatted_text, unsafe_allow_html=True)
 
-#make a small hint that the app needs a few seconds to start
+# make a small hint that the app needs a few seconds to start
 st.markdown(
     "<p style='text-align: center; color: grey;'>"
     + "The app needs a second to start..."
