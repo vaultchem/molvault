@@ -112,9 +112,13 @@ The easiest way to run the app is via the huggingface space (see above).
 Alternatively, after following the installation instruction you can launch the app with:
 
 1. Navigate to the `examples/huggingface/app` folder
-2. Unzip the `deployment.zip` file using `unzip deployment.zip`
-3. Run `bash run_app.sh` to start the app
-4. Open you browser and go to `http://localhost:8501/`
+2. If you want to use the SVR go to `SVR` folder, if you want to use the XGB go to `XGB` folder
+3. Move the `deployment.zip` file to the `app` folder
+4. Unzip the `deployment.zip` file using `unzip deployment.zip`
+5. Run `bash run_app.sh` to start the app
+6. Open you browser and go to `http://localhost:8501/`
+
+Note that the huggingface space is already set up to use the SVR model.
 
 ## Model fitting
 
