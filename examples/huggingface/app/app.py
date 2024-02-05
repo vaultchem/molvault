@@ -67,6 +67,15 @@ formatted_text = (
 
 st.markdown(formatted_text, unsafe_allow_html=True)
 
+#make a small hint that the app needs a few seconds to start
+st.markdown(
+    "<p style='text-align: center; color: grey;'>"
+    + "The app needs a second to start..."
+    + "</p>",
+    unsafe_allow_html=True,
+)
+
+
 interesting_text = """
 Machine learning (**ML**) has become a cornerstone of modern drug discovery. However, the data used to evaluate the ML models is often **confidential**.
 This is especially true for the pharmaceutical industry where new drug candidates are considered as the most valuable asset.
