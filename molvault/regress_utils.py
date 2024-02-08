@@ -1,6 +1,6 @@
 import sys
 import os
-
+import pdb
 import numpy as np
 import random
 import json
@@ -233,6 +233,28 @@ def setup_client(network, key_dir):
     return fhemodel_client, serialized_evaluation_keys
 
 
+def compare_timings(model, X_client):
+    
+    time_begin = time.time()
+    fhe_predictions_decrypted  = model.predict(X_client, fhe="execute")
+    time_end = time.time()
+    run_time = time_end - time_begin
+    run_time = run_time / len(X_client)
+    no_fhe_predictions_decrypted  = model.predict(X_client, fhe="disable")
+
+    mae = np.mean(
+        np.abs(fhe_predictions_decrypted- no_fhe_predictions_decrypted)
+    )
+    
+    #pearson correlation
+    pearsonr_score = pearsonr(
+        fhe_predictions_decrypted.flatten(), no_fhe_predictions_decrypted.flatten()
+    ).statistic
+
+    return run_time, mae, pearsonr_score
+
+
+    
 def compare_predictions(network, fhemodel_client, sklearn_model, X_client):
     fhe_predictions_decrypted, _ = client_server_interaction(
         network, fhemodel_client, X_client
