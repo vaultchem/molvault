@@ -3,7 +3,7 @@
 </p>
 
 
-## Predict properties of 🤫CONFIDENTIAL🤫 molecules🧬 using machine learning🤖? 
+## Predict properties of 🤫CONFIDENTIAL molecules🧬 using machine learning🤖? 
 ## Concerned about leaking your data to a competitor🕵️‍♂️?
 
 

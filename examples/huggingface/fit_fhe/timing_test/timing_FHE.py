@@ -31,8 +31,8 @@ SMILES_train, SMILES_test, X_train, X_test, y_train, y_test = load_ADME_data("LO
 
 
 param_grid_xgboost = {
-    "n_estimators": [10],
-    "max_depth": [3, 5, 20],
+    "n_estimators": [10, 50, 100],
+    "max_depth": [2,3,5,8,10,12,15],
     "learning_rate":[0.138949549],
     "reg_alpha": [0.625], 
     "reg_lambda": [0.54545454544], 
@@ -52,8 +52,7 @@ parameter_combinations_dicts = [
 ]
 
 
-
-RESULTS = []
+TIMES,ERRORS, CORRELATIONS = [], [],[]
 
 for task_ind, params in enumerate(parameter_combinations_dicts):
 
@@ -61,8 +60,12 @@ for task_ind, params in enumerate(parameter_combinations_dicts):
     print(params)
     run_time, error, pearsons_r = compare_timings(model_dev, X_test[:10])
     print(run_time, error, pearsons_r)
+    TIMES.append(run_time)
+    ERRORS.append(error)
+    CORRELATIONS.append(pearsons_r)
 
-    #RESULTS.append([FHE_timings, FHE_errors])
+results = pd.DataFrame(
+    {"depths": param_grid_xgboost["max_depth"], "times": TIMES, "correlations": CORRELATIONS, "errors": ERRORS}
+)
 
-#with open(f"models/FHE_timings.json", "w") as fp:
-    #json.dump(RESULTS, fp, default=convert_numpy)
+results.to_csv("timing_results.csv")
