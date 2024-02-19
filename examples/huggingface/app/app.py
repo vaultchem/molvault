@@ -70,7 +70,7 @@ st.markdown(formatted_text, unsafe_allow_html=True)
 # make a small hint that the app needs a few seconds to start
 st.markdown(
     "<p style='text-align: center; color: grey;'>"
-    + "The app needs a second to start..."
+    + "The app needs a second to start...not optimized for mobile yet. 🚀"
     + "</p>",
     unsafe_allow_html=True,
 )
