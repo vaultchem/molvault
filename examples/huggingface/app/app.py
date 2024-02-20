@@ -494,11 +494,11 @@ if __name__ == "__main__":
     init_session_state()
 
     with st.container():
-        st.header(":green[Start]")
+        st.header("Start") 
         st.markdown(
             "Run all the steps in order to predict a property for a molecule of your choice. Why not all steps at once? Because we want to show you the steps involved in the process (see figure above)."
         )
-        st.subheader("Step 0: Which property do you want to predict?")
+        st.subheader(":red[Step 0: Which property do you want to predict?]")
         st.markdown(
             "This app can predict the following properties of confidential molecules:"
         )
@@ -526,7 +526,7 @@ if __name__ == "__main__":
             task_options.index(selected_label)
         ]
 
-        st.subheader("Step 1: Submit a molecule")
+        st.subheader(":red[Step 1: Submit a molecule]")
 
         x, y, z = st.columns(3)
 
@@ -573,7 +573,7 @@ if __name__ == "__main__":
 
     with st.container():
         st.subheader(
-            f"Step 2 : Generate encryption key (private to you) and an evaluation key (public)."
+            f":red[Step 2 : Generate encryption key (private to you) and an evaluation key (public).]"
         )
         bullet_points = """
         - Evaluation key is public and accessible by server.
@@ -597,7 +597,7 @@ if __name__ == "__main__":
 
     with st.container():
         st.subheader(
-            f"Step 3 : Encrypt molecule using private key and send it to server."
+            f":red[Step 3 : Encrypt molecule using private key and send it to server.]"
         )
         encrypt_button = st.button("Encrypt molecule", on_click=encrpyt_data_util)
         if st.session_state["encrypt"] == True:
@@ -612,7 +612,7 @@ if __name__ == "__main__":
             )
 
     with st.container():
-        st.subheader(f"Step 4 : Run encrypted prediction on server side.")
+        st.subheader(f":blue[Step 4 : Run encrypted prediction on server side.]")
         fhe_button = st.button("Predict in FHE domain", on_click=FHE_util)
         if st.session_state["fhe_done"]:
             st.success("Prediction Done Successfuly in FHE domain", icon="🙌")
@@ -623,7 +623,7 @@ if __name__ == "__main__":
             st.warning("Check if you have generated keys correctly.")
 
     with st.container():
-        st.subheader(f"Step 5 : Decrypt the predictions with your private key.")
+        st.subheader(f":red[Step 5 : Decrypt the predictions with your private key.]")
         decrypt_button = st.button(
             "Perform Decryption on FHE inferred prediction", on_click=decrypt_util
         )
