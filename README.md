@@ -144,3 +144,6 @@ https://github.com/molecularinformatics/Computational-ADME
   <img src="./examples/huggingface/app/VaultChem.png" width="30%" height="40%" />
   <h6 style='text-align: center; color: grey;'>Visit our website : <a href='https://vaultchem.com/'>VaultChem</a></h6>
 </p>
+
+
+[Copyright notice]: Server_rack icon by DBCLS https://togotv.dbcls.jp/en/pics.html is licensed CC-BY 4.0 Unported, rat-adult icon by Servier https://smart.servier.com/ is licensed under CC-BY 3.0 Unported https://creativecommons.org/licenses/by/3.0/

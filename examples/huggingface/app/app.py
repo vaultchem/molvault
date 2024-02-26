@@ -722,3 +722,7 @@ st.markdown(
 st.write(
     ":red[Please Note]: The content of your app is purely for educational and illustrative purposes and is not intended for the management of sensitive information. We disclaim any liability for potential financial or other damages. This platform is not a substitute for professional health advice, diagnosis, or treatment. Health-related inquiries should be directed to qualified medical professionals. Use of this app implies acknowledgment of these terms and understanding of its intended educational use."
 )
+
+st.write(
+    ":red[Copyright notice]: Server_rack icon by DBCLS https://togotv.dbcls.jp/en/pics.html is licensed CC-BY 4.0 Unported, rat-adult icon by Servier https://smart.servier.com/ is licensed under CC-BY 3.0 Unported https://creativecommons.org/licenses/by/3.0/"
+)
